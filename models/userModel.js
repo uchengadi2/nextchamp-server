@@ -20,7 +20,15 @@ const userSchema = new mongoose.Schema(
     role: {
       type: String,
       default: "user",
-      enum: ["user", "admin", "staff"],
+      enum: [
+        "user",
+        "nextchamp",
+        "admin",
+        "staff",
+        "instructor",
+        "assessor",
+        "mentor",
+      ],
     },
     password: {
       type: String,
@@ -48,13 +56,13 @@ const userSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      default: "staff",
-      enum: ["staff", "customer", "partner"],
+      default: "nextchamp",
+      enum: ["staff", "nextchamp", "champion"],
     },
-    vendor: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Vendor",
-    },
+    // vendor: {
+    //   type: mongoose.Schema.ObjectId,
+    //   ref: "Vendor",
+    // },
 
     phoneNumber: {
       type: String,
