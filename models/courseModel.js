@@ -116,6 +116,18 @@ const courseSchema = new mongoose.Schema(
     venueLink: {
       type: String,
     },
+    capstoneProject: {
+      type: String,
+    },
+    contents: {
+      type: String,
+    },
+    passGrade: {
+      type: String,
+    },
+    successTips: {
+      type: String,
+    },
   },
   {
     toJSON: { virtuals: true },
