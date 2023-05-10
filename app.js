@@ -39,6 +39,8 @@ const logisticsPartnerRoute = require("./routes/logisticsPartnerRoute");
 const deliveryRoute = require("./routes/deliveryRoute");
 const transactionRoute = require("./routes/transactionRoute");
 const courseRoute = require("./routes/courseRoute");
+const channelRoute = require("./routes/channelRoute");
+const programmeRoute = require("./routes/programmeRoute");
 
 const app = express();
 
@@ -135,6 +137,10 @@ app.use("/api/v1/logisticspartners", logisticsPartnerRoute);
 app.use("/api/v1/deliveries", deliveryRoute);
 app.use("/api/v1/transactions", transactionRoute);
 app.use("/api/v1/courses", courseRoute);
+app.use("/api/v1/channels", channelRoute);
+app.use("/api/v1/programmes", programmeRoute);
+
+channelRoute;
 
 //tackling unhandled routes
 app.all("*", (req, res, next) => {

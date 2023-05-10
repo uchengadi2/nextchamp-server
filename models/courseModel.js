@@ -31,6 +31,19 @@ const courseSchema = new mongoose.Schema(
         ref: "Category",
       },
     ],
+    channel: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Channel",
+      },
+    ],
+
+    programme: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Programme",
+      },
+    ],
 
     price: {
       type: Number,
@@ -127,6 +140,11 @@ const courseSchema = new mongoose.Schema(
     },
     successTips: {
       type: String,
+    },
+    status: {
+      type: String,
+      default: "public",
+      enum: ["public", "private"],
     },
   },
   {
