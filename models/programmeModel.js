@@ -38,6 +38,26 @@ const programmeSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    duration: {
+      type: String,
+    },
+    commencementWeekdaysDate: [
+      {
+        type: String,
+      },
+    ],
+    commencementWeekendsDate: [
+      {
+        type: String,
+      },
+    ],
+    tracks: {
+      type: String,
+      enum: ["weekdays", "weekends", "weekdays/weekends"],
+    },
+    averageNextChampGradePoint: {
+      type: String,
+    },
   },
   {
     toJSON: { virtuals: true },

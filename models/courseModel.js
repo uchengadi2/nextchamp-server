@@ -85,28 +85,33 @@ const courseSchema = new mongoose.Schema(
       enum: ["live", "self-pace"],
     },
     duration: {
-      type: Number,
+      type: String,
     },
-    commencementDate: {
-      type: Date,
-    },
+
+    // commencementDate: [
+    //   {
+    //     type: String,
+    //     enum: [],
+    //   },
+    // ],
     venue: {
       type: String,
     },
     sessionDuration: {
-      type: Number,
+      type: String,
     },
     sessionPeriod: {
       type: String,
     },
-    studyPeriod: {
+    tracks: {
       type: String,
+      enum: ["weekdays", "weekends", "weekdays/weekends"],
     },
     lectureDuration: {
-      type: Number,
+      type: String,
     },
     projectDuration: {
-      type: Number,
+      type: String,
     },
     instructor: {
       type: String,
@@ -146,6 +151,16 @@ const courseSchema = new mongoose.Schema(
       default: "public",
       enum: ["public", "private"],
     },
+    commencementWeekdaysDate: [
+      {
+        type: String,
+      },
+    ],
+    commencementWeekendsDate: [
+      {
+        type: String,
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },
