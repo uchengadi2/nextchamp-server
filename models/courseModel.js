@@ -97,13 +97,13 @@ const courseSchema = new mongoose.Schema(
     venue: {
       type: String,
     },
-    sessionDuration: {
+    weekdaySessionPeriod: {
       type: String,
     },
-    sessionPeriod: {
+    weekendSessionPeriod: {
       type: String,
     },
-    tracks: {
+    track: {
       type: String,
       enum: ["weekdays", "weekends", "weekdays/weekends"],
     },
@@ -161,6 +161,20 @@ const courseSchema = new mongoose.Schema(
         type: String,
       },
     ],
+    showGenericWeekdayStartDateText: {
+      type: Boolean,
+      enum: [false, true],
+    },
+    showGenericWeekendStartDateText: {
+      type: Boolean,
+      enum: [false, true],
+    },
+    genericWeekdayStartDateText: {
+      type: String,
+    },
+    genericWeekendStartDateText: {
+      type: String,
+    },
   },
   {
     toJSON: { virtuals: true },
