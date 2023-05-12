@@ -175,6 +175,9 @@ const courseSchema = new mongoose.Schema(
     genericWeekendStartDateText: {
       type: String,
     },
+    paymentOptions: {
+      type: String,
+    },
   },
   {
     toJSON: { virtuals: true },
