@@ -92,6 +92,9 @@ const orderSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    preferredStartDate: {
+      type: Date,
+    },
   },
   {
     toJSON: { virtuals: true },

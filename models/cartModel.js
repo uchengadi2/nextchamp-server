@@ -39,6 +39,9 @@ const cartSchema = new mongoose.Schema(
       default: "unmarked-for-checkout",
       enum: ["unmarked-for-checkout", "marked-for-checkout", "checkedout"],
     },
+    preferredStartDate: {
+      type: Date,
+    },
   },
 
   {
