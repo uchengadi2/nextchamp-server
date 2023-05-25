@@ -26,11 +26,11 @@ mongoose
   .then(() => console.log("DB Connection is successful"));
 
 const port = process.env.PORT || 9005;
-// const server = app.listen(port, () => {
-//   console.log(`App running on port ${port}...`);
-// });
+const server = app.listen(port, () => {
+  console.log(`App running on port ${port}...`);
+});
 
-const server = app.listen(port, "0.0.0.0");
+//const server = app.listen(port, "0.0.0.0");
 
 //To handle unhandled promised rejections
 process.on("unhandledRejection", (err) => {
