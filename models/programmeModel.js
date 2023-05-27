@@ -58,6 +58,9 @@ const programmeSchema = new mongoose.Schema(
     averageNextChampGradePoint: {
       type: String,
     },
+    slug: {
+      type: String,
+    },
   },
   {
     toJSON: { virtuals: true },

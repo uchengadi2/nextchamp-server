@@ -178,6 +178,9 @@ const courseSchema = new mongoose.Schema(
     paymentOptions: {
       type: String,
     },
+    slug: {
+      type: String,
+    },
   },
   {
     toJSON: { virtuals: true },

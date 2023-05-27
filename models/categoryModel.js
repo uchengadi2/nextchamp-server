@@ -27,6 +27,9 @@ const categorySchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    slug: {
+      type: String,
+    },
   },
   {
     toJSON: { virtuals: true },
