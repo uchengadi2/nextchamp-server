@@ -76,7 +76,8 @@ const orderSchema = new mongoose.Schema(
     },
     paymentMethod: {
       type: String,
-      enum: ["card", "foreigner"],
+      default: "audit",
+      enum: ["audit", "card", "foreigner"],
     },
     status: {
       type: String,

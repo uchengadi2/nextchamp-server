@@ -82,18 +82,23 @@ const courseSchema = new mongoose.Schema(
     },
     deliveryMethod: {
       type: String,
-      enum: ["live", "self-pace"],
+      enum: ["live", "self-pace", "hybrid"],
     },
     duration: {
       type: String,
     },
 
-    // commencementDate: [
-    //   {
-    //     type: String,
-    //     enum: [],
-    //   },
-    // ],
+    isCourseAuditable: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+    weekdayAuditDays: {
+      type: String,
+    },
+    weekendAuditDays: {
+      type: String,
+    },
     venue: {
       type: String,
     },
@@ -106,6 +111,11 @@ const courseSchema = new mongoose.Schema(
     track: {
       type: String,
       enum: ["weekdays", "weekends", "weekdays/weekends"],
+    },
+    type: {
+      type: String,
+      default: "crash-course",
+      enum: ["crash-course", "regular-course"],
     },
     lectureDuration: {
       type: String,
@@ -179,6 +189,36 @@ const courseSchema = new mongoose.Schema(
       type: String,
     },
     slug: {
+      type: String,
+    },
+    hasMentorshipCredit: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+    mentorshipCredit: {
+      type: Number,
+    },
+    mentorshipDuration: {
+      type: String,
+    },
+    costPerMentorshipCredit: {
+      type: Number,
+    },
+    series: {
+      type: String,
+    },
+    hasSeries: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+    isInstallmentalPaymentAllowed: {
+      type: String,
+      default: "no",
+      enum: ["no", "yes"],
+    },
+    maximumInstallmentalPayment: {
       type: String,
     },
   },
