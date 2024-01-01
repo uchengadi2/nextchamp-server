@@ -115,7 +115,17 @@ const courseSchema = new mongoose.Schema(
     type: {
       type: String,
       default: "crash-course",
-      enum: ["crash-course", "regular-course"],
+      enum: [
+        "crash-course",
+        "regular-course",
+        "programmes",
+        "channels",
+        "assessments",
+        "mentoring",
+        "mocks",
+        "live-interviews-preps",
+        "talk-to-expert",
+      ],
     },
     lectureDuration: {
       type: String,
@@ -221,6 +231,16 @@ const courseSchema = new mongoose.Schema(
     maximumInstallmentalPayment: {
       type: String,
     },
+    majorSkills: [
+      {
+        type: String,
+      },
+    ],
+    minorSkills: [
+      {
+        type: String,
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },
