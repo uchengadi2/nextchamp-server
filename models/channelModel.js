@@ -12,12 +12,22 @@ const channelSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    type: {
+      type: String,
+      default: "professionals",
+      enum: ["professionals", "academics", "life"],
+    },
 
     image: {
       type: String,
       required: [false, "Please provide the image cover"],
     },
     status: {
+      type: String,
+      default: "inactive",
+      enum: ["inactive", "active"],
+    },
+    class: {
       type: String,
       default: "public",
       enum: ["public", "private"],
@@ -33,6 +43,9 @@ const channelSchema = new mongoose.Schema(
       default: Date.now,
     },
     slug: {
+      type: String,
+    },
+    owner: {
       type: String,
     },
   },

@@ -7,12 +7,10 @@ const router = express.Router();
 
 //protect all the routes below
 
-//router.use(authController.protect);
-
 router.route("/").get(courseController.getAllCourses).post(
-  //authController.restrictTo("admin"),
-  courseController.uploadCourseCoverImage,
-
+  //authController.restrictTo("admin", "set-admin"),
+  courseController.uploadCourseImages,
+  courseController.resizeCourseImages,
   courseController.createCourse
 );
 
@@ -20,14 +18,12 @@ router
   .route("/:id")
   .get(courseController.getCourse)
   .patch(
-    courseController.uploadCourseCoverImage,
-    courseController.resizeCourseCoverImage,
+    //authController.restrictTo("admin", "set-admin"),
+    courseController.uploadCourseImages,
+    courseController.resizeCourseImages,
 
     courseController.updateCourse
   )
-  .delete(
-    //authController.restrictTo("admin","user"),
-    courseController.deleteCourse
-  );
+  .delete(courseController.deleteCourse);
 
 module.exports = router;

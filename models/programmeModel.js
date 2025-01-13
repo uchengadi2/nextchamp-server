@@ -25,6 +25,11 @@ const programmeSchema = new mongoose.Schema(
     ],
     status: {
       type: String,
+      default: "inactive",
+      enum: ["inactive", "active"],
+    },
+    class: {
+      type: String,
       default: "public",
       enum: ["public", "private"],
     },
@@ -41,17 +46,8 @@ const programmeSchema = new mongoose.Schema(
     duration: {
       type: String,
     },
-    commencementWeekdaysDate: [
-      {
-        type: String,
-      },
-    ],
-    commencementWeekendsDate: [
-      {
-        type: String,
-      },
-    ],
-    tracks: {
+
+    track: {
       type: String,
       enum: ["weekdays", "weekends", "weekdays/weekends"],
     },
@@ -61,12 +57,23 @@ const programmeSchema = new mongoose.Schema(
     slug: {
       type: String,
     },
+    owner: {
+      type: String,
+    },
   },
   {
     toJSON: { virtuals: true },
     toObjects: { virtuals: true },
   }
 );
+
+//QUERY MIDDLEWARE
+programmeSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "channel",
+  });
+  next();
+});
 
 const Programme = mongoose.model("Programme", programmeSchema);
 module.exports = Programme;

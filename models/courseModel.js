@@ -6,7 +6,7 @@ const courseSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: [false, "Every course must have a name"],
+      required: [false, "Every course must have a title"],
     },
     shortDescription: {
       type: String,
@@ -24,6 +24,12 @@ const courseSchema = new mongoose.Schema(
       type: String,
       required: [false, "Please provide the image cover"],
     },
+
+    images: [
+      {
+        type: String,
+      },
+    ],
 
     category: [
       {
@@ -48,9 +54,13 @@ const courseSchema = new mongoose.Schema(
     price: {
       type: Number,
     },
-    currency: {
+    priceLabel: {
       type: String,
-      default: "naira",
+    },
+
+    currency: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Currency",
     },
 
     keyword1: {
@@ -75,14 +85,9 @@ const courseSchema = new mongoose.Schema(
       },
     ],
 
-    isFeaturedProduct: {
-      type: Boolean,
-      default: false,
-      enum: [false, true],
-    },
     deliveryMethod: {
       type: String,
-      enum: ["live", "self-pace", "hybrid"],
+      enum: ["live-in-person", "live-online", "self-pace", "blended"],
     },
     duration: {
       type: String,
@@ -118,13 +123,16 @@ const courseSchema = new mongoose.Schema(
       enum: [
         "crash-course",
         "regular-course",
-        "programmes",
-        "channels",
-        "assessments",
-        "mentoring",
-        "mocks",
-        "live-interviews-preps",
-        "talk-to-expert",
+        "certification",
+        // "programmes",
+        // "channels",
+        // "assessments",
+        // "mentoring",
+        // "mocks",
+        // "live-interviews-preps",
+        // "talk-to-expert",
+        // "books",
+        "vocational",
       ],
     },
     lectureDuration: {
@@ -133,9 +141,7 @@ const courseSchema = new mongoose.Schema(
     projectDuration: {
       type: String,
     },
-    instructor: {
-      type: String,
-    },
+
     features: {
       type: String,
     },
@@ -154,6 +160,7 @@ const courseSchema = new mongoose.Schema(
     venueLink: {
       type: String,
     },
+
     capstoneProject: {
       type: String,
     },
@@ -166,41 +173,30 @@ const courseSchema = new mongoose.Schema(
     successTips: {
       type: String,
     },
+
     status: {
+      type: String,
+      default: "inactive",
+      enum: ["inactive", "active"],
+    },
+    class: {
       type: String,
       default: "public",
       enum: ["public", "private"],
     },
-    commencementWeekdaysDate: [
-      {
-        type: String,
-      },
-    ],
-    commencementWeekendsDate: [
-      {
-        type: String,
-      },
-    ],
+
+    //starts here
     showGenericWeekdayStartDateText: {
       type: Boolean,
+      default: false,
       enum: [false, true],
     },
     showGenericWeekendStartDateText: {
       type: Boolean,
+      default: false,
       enum: [false, true],
     },
-    genericWeekdayStartDateText: {
-      type: String,
-    },
-    genericWeekendStartDateText: {
-      type: String,
-    },
-    paymentOptions: {
-      type: String,
-    },
-    slug: {
-      type: String,
-    },
+
     hasMentorshipCredit: {
       type: Boolean,
       default: false,
@@ -208,13 +204,16 @@ const courseSchema = new mongoose.Schema(
     },
     mentorshipCredit: {
       type: Number,
+      default: 0,
     },
     mentorshipDuration: {
       type: String,
     },
     costPerMentorshipCredit: {
       type: Number,
+      default: 0,
     },
+
     series: {
       type: String,
     },
@@ -222,6 +221,20 @@ const courseSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
       enum: [false, true],
+    },
+
+    commencementWeekdaysDate: {
+      type: String,
+    },
+
+    commencementWeekendsDate: {
+      type: String,
+    },
+    genericWeekdayStartDateText: {
+      type: String,
+    },
+    genericWeekendStartDateText: {
+      type: String,
     },
     isInstallmentalPaymentAllowed: {
       type: String,
@@ -231,22 +244,73 @@ const courseSchema = new mongoose.Schema(
     maximumInstallmentalPayment: {
       type: String,
     },
-    majorSkills: [
-      {
-        type: String,
-      },
-    ],
-    minorSkills: [
-      {
-        type: String,
-      },
-    ],
+    paymentOptions: {
+      type: String,
+    },
+    majorSkills: {
+      type: String,
+    },
+
+    minorSkills: {
+      type: String,
+    },
+
+    videoId: {
+      type: String,
+    },
+    videoType: {
+      type: String,
+      default: "bundled",
+      enum: ["bundled", "splitted-by-lessons", "splitted-by-topics"],
+    },
+
+    allowLifeTimeAccess: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+    previewVideoId: {
+      type: String,
+    },
+    slug: {
+      type: String,
+    },
   },
   {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
   }
 );
+
+//QUERY MIDDLEWARE
+
+courseSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "category",
+  });
+  next();
+});
+
+courseSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "channel",
+  });
+  next();
+});
+
+courseSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "programme",
+  });
+  next();
+});
+
+// courseSchema.pre(/^find/, function (next) {
+//   this.populate({
+//     path: "currency",
+//   });
+//   next();
+// });
 
 const Course = mongoose.model("Course", courseSchema);
 

@@ -20,40 +20,62 @@ const multerFilter = (req, file, cb) => {
   }
 };
 
-//const upload = multer({ dest: "public/images/products" });
+//const upload = multer({ dest: "public/images/users" });
 
 const upload = multer({
   storage: multerStorage,
   fileFilter: multerFilter,
 });
 
-//when uploading multiple files
-exports.uploadProductImages = upload.fields([
-  {
-    name: "imageCover",
-    maxCount: 1,
-  },
-  {
-    name: "images",
-    maxCount: 5,
-  },
+//when uploading a single file
+//exports.uploadEventThumbnailImage = upload.single("thumbnail");
+
+//for multiple images in a field that is an array, use the following
+//exports.uploadImages = upload.array('images',3)
+
+//for more than one file(multiple files)
+exports.uploadCourseImages = upload.fields([
+  { name: "imageCover", maxCount: 1 },
+  { name: "images", maxCount: 12 },
 ]);
 
-//uploading  and resizing the product cover image
-exports.uploadCourseCoverImage = upload.single("imageCover");
+exports.resizeCourseImages = catchAsync(async (req, res, next) => {
+  //if (!req.files.thumbnail || !req.files.images) return next();
+  //if (!req.files.thumbnail) return next();
 
-exports.resizeCourseCoverImage = catchAsync(async (req, res, next) => {
-  if (!req.file) return next();
+  //processing the thumbnail
 
-  //1. start by processing the cover image
-  req.body.imageCover = `course-${req.body.createdBy}-${Date.now()}-cover.jpeg`;
+  if (req.files.imageCover) {
+    req.body.imageCover = `courses-${
+      req.body.createdBy
+    }-${Date.now()}-imageCover.jpeg`;
 
-  await sharp(req.file.buffer)
-    // .resize(2000, 1333)
-    .resize(500, 500)
-    .toFormat("jpeg")
-    .jpeg({ quality: 90 })
-    .toFile(`public/images/courses/${req.body.imageCover}`);
+    await sharp(req.files.imageCover[0].buffer)
+      .resize(500, 500)
+      .toFormat("jpeg")
+      .jpeg({ quality: 90 })
+      .toFile(`public/images/courses/${req.body.imageCover}`);
+  }
+
+  if (req.files.images) {
+    //processing other images
+    req.body.images = [];
+    await Promise.all(
+      req.files.images.map(async (file, index) => {
+        const filename = `courses-${req.body.createdBy}-${Date.now()}-${
+          index + 1
+        }.jpeg`;
+
+        await sharp(file.buffer)
+          // .resize(2000, 1333)
+          .resize(500, 500)
+          .toFormat("jpeg")
+          .jpeg({ quality: 90 })
+          .toFile(`public/images/courses/${filename}`);
+        req.body.images.push(filename);
+      })
+    );
+  }
 
   next();
 });
