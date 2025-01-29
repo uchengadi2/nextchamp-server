@@ -190,6 +190,11 @@ const cartSchema = new mongoose.Schema(
     priceLabel: {
       type: String,
     },
+    acceptablePaymentOptions: {
+      type: String,
+      default: "all-types",
+      enum: ["all-types", "only-bank-transfer", "only-online"],
+    },
   },
 
   {

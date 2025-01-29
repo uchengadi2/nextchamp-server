@@ -275,6 +275,31 @@ const courseSchema = new mongoose.Schema(
     slug: {
       type: String,
     },
+    acceptablePaymentOptions: {
+      type: String,
+      default: "all-types",
+      enum: ["all-types", "only-bank-transfer", "only-online"],
+    },
+    allowInstructors: {
+      type: Boolean,
+      default: true,
+      enum: [false, true],
+    },
+    allowHomeInstructors: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+    allowAccessments: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+    allowMentorship: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
   },
   {
     toJSON: { virtuals: true },

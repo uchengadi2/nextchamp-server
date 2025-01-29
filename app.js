@@ -41,6 +41,15 @@ const transactionRoute = require("./routes/transactionRoute");
 const courseRoute = require("./routes/courseRoute");
 const channelRoute = require("./routes/channelRoute");
 const programmeRoute = require("./routes/programmeRoute");
+const instructorRoute = require("./routes/instructorRoute");
+const assessorRoute = require("./routes/assessorRoute");
+const mentorRoute = require("./routes/mentorRoute");
+const courseAssessorRoute = require("./routes/courseAssessorRoute");
+const courseInstructorRoute = require("./routes/courseInstructorRoute");
+const courseMentorRoute = require("./routes/courseMentorRoute");
+
+const courseLessonRoute = require("./routes/courseLessonRoute");
+const courseTopicRoute = require("./routes/courseTopicRoute");
 
 const app = express();
 
@@ -139,8 +148,14 @@ app.use("/api/v1/transactions", transactionRoute);
 app.use("/api/v1/courses", courseRoute);
 app.use("/api/v1/channels", channelRoute);
 app.use("/api/v1/programmes", programmeRoute);
-
-channelRoute;
+app.use("/api/v1/instructors", instructorRoute);
+app.use("/api/v1/assessors", assessorRoute);
+app.use("/api/v1/mentors", mentorRoute);
+app.use("/api/v1/courseinstructors", courseInstructorRoute);
+app.use("/api/v1/coursementors", courseMentorRoute);
+app.use("/api/v1/courseassessors", courseAssessorRoute);
+app.use("/api/v1/courselessons", courseLessonRoute);
+app.use("/api/v1/coursetopics", courseTopicRoute);
 
 //tackling unhandled routes
 app.all("*", (req, res, next) => {

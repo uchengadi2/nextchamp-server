@@ -138,22 +138,7 @@ const orderSchema = new mongoose.Schema(
     passGrade: {
       type: String,
     },
-    hasMentorshipCredit: {
-      type: Boolean,
-      default: false,
-      enum: [false, true],
-    },
-    mentorshipCredit: {
-      type: Number,
-      default: 0,
-    },
-    mentorshipDuration: {
-      type: String,
-    },
-    costPerMentorshipCredit: {
-      type: Number,
-      default: 0,
-    },
+
     videoId: {
       type: String,
     },
@@ -258,6 +243,34 @@ const orderSchema = new mongoose.Schema(
 orderSchema.pre(/^find/, function (next) {
   this.populate({
     path: "product",
+  });
+  next();
+});
+
+orderSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "category",
+  });
+  next();
+});
+
+orderSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "channel",
+  });
+  next();
+});
+
+orderSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "programme",
+  });
+  next();
+});
+
+orderSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "transactionId",
   });
   next();
 });
