@@ -133,6 +133,7 @@ const courseSchema = new mongoose.Schema(
         // "talk-to-expert",
         // "books",
         "vocational",
+        "special-course"
       ],
     },
     lectureDuration: {
@@ -290,7 +291,7 @@ const courseSchema = new mongoose.Schema(
       default: false,
       enum: [false, true],
     },
-    allowAccessments: {
+    allowAssessments: {
       type: Boolean,
       default: false,
       enum: [false, true],
